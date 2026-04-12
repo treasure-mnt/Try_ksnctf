@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><title>Decryption</title></head>
+<body style="background:#111;color:#0f0;font-family:monospace;display:flex;justify-content:center;padding:20px;">
+    <div style="border:1px solid #444;padding:20px;background:#222;width:600px;box-shadow:0 0 20px #000;">
+        <h3 id="stat" style="color:#fa0;">SCANNING...</h3>
+        <input type="range" id="sld" min="0" max="25" value="0" style="width:100%;">
+        <div style="margin:10px 0;">SHIFT: <span id="sv">0</span></div>
+        <div id="out" style="background:#000;padding:15px;min-height:120px;border:1px solid #333;word-break:break-all;"></div>
+    </div>
+    <script>
+        const src = "EBG KVVV vf n fvzcyr yrggre fhofgvghgvba pvcure gung ercynprf n yrggre jvgu gur yrggre KVVV yrggref nsgre vg va gur nycunorg. EBG KVVV vf na rknzcyr bs gur Pnrfne pvcure, qrirybcrq va napvrag Ebzr. Synt vf SYNTFjmtkOWFNZdjkkNH. Vafreg na haqrefpber vzzrqvngryl nsgre SYNT.";
+        const sld = document.getElementById('sld');
+        const sv = document.getElementById('sv');
+        const out = document.getElementById('out');
+        const stat = document.getElementById('stat');
+        function shift(c, n) {
+            const k = c.charCodeAt(0);
+            if (k >= 65 && k <= 90) return String.fromCharCode((k - 65 + n) % 26 + 65);
+            if (k >= 97 && k <= 122) return String.fromCharCode((k - 97 + n) % 26 + 97);
+            return c;
+        }
+        function draw(n) {
+            sv.innerText = n;
+            let res = "";
+            for (let i = 0; i < src.length; i++) res += shift(src[i], n);
+            if (res.indexOf("FLAG") !== -1) {
+                stat.innerText = "DETECTED!"; stat.style.color = "#0f0";
+                out.innerHTML = res.replace(/(FLAG)/g, '<span style="background:yellow;color:red;font-weight:bold;">$1</span>');
+            } else {
+                out.innerText = res;
+            }
+        }
+        let n = 0, auto = true;
+        const timer = setInterval(() => {
+            if (!auto) return;
+            n = (n + 1) % 26;
+            sld.value = n;
+            draw(n);
+        }, 500);
+        sld.oninput = () => { auto = false; stat.innerText = "MANUAL"; stat.style.color = "#0af"; draw(parseInt(sld.value)); };
+        draw(0);
+    </script>
+</body>
+</html>
