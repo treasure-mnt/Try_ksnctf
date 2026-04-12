@@ -1,0 +1,13 @@
+# 実行によって生成されるフラグファイルを無視
+flag.txt
+
+# Rust のビルドディレクトリ
+target/
+
+# Jupyter Notebook の一時保存・キャッシュ
+.ipynb_checkpoints/
+Untitled.ipynb
+
+# Added by cargo
+
+/target
