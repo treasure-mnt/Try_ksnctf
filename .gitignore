@@ -1,5 +1,5 @@
 # 実行によって生成されるフラグファイルを無視
-flag.txt
+flag*.txt
 
 # Rust のビルドディレクトリ
 target/
