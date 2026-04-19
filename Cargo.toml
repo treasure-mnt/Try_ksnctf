@@ -1,6 +1,2 @@
-[package]
-name = "Try_ksnctf"
-version = "0.1.0"
-edition = "2024"
-
-[dependencies]
+[workspace]
+members = ["06/ksnctf_q6"]
