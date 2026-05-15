@@ -1,0 +1,9 @@
+version: '3'
+services:
+  php55:
+    build: .
+    ports:
+      - "8080:80"
+    volumes:
+      # ホットリロード用: auth.phpを直接マウント（開発時に便利）
+      - ./auth.php:/var/www/html/auth.php

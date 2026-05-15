@@ -1,0 +1,11 @@
+# ビルドして起動
+docker-compose up --build
+
+# バックグラウンドで起動したい場合
+docker-compose up --build -d
+
+# 停止
+docker-compose down
+
+# イメージも含めて完全削除
+docker-compose down --rmi all
