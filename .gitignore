@@ -41,9 +41,12 @@ Untitled.ipynb
 33/q33.pcap
 34/image/
 34/dataset-prepare/
-34/tmp
+34/dataset-manual-3ch_backup/
+34/dataset-manual-3ch_copy/
+34/tmp/
 34/image.zip
-34/flag.jpg
+34/trainer/flag.jpg
+34/trainer/flag_dec.jpg
 39/bkcrack-1.8.1-win64/
 39/flag_decrypted/
 39/flag.zip

@@ -1,2 +1,5 @@
 [workspace]
-members = ["06/ksnctf_q6"]
+members = [
+	"06/ksnctf_q6",
+	"34/",
+]

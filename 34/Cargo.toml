@@ -1,0 +1,23 @@
+[package]
+name    = "trainer"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "train"
+path = "src/train.rs"
+
+[[bin]]
+name = "infer"
+path = "src/infer.rs"
+
+[[bin]]
+name = "decode"
+path = "src/decode.rs"
+
+[dependencies]
+burn           = { version = "0.16", features = ["ndarray", "train"] }
+image          = { version = "0.25", features = ["png", "jpeg"] }
+rand           = "0.8"
+rayon          = "1"
+reed-solomon   = "0.2"
