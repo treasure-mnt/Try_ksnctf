@@ -1,0 +1,18 @@
+# ksnctf #36 "Are you ESPer?" - Rustソルバー Dockerfile
+# マルチステージビルドで軽量なソルバーイメージを作成
+
+FROM rust:1.75-slim AS builder
+
+WORKDIR /app
+COPY solver/ .
+RUN cargo build --release
+
+# ランタイムイメージ
+FROM debian:bookworm-slim
+
+COPY --from=builder /app/target/release/esp_solver /usr/local/bin/esp_solver
+
+# デフォルトはローカルサーバーに接続
+# 引数で変更可能: docker run solver 192.168.1.x:10036
+ENTRYPOINT ["/usr/local/bin/esp_solver"]
+CMD ["127.0.0.1:10036"]

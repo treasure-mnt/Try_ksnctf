@@ -1,0 +1,24 @@
+# ksnctf #36 "Are you ESPer?" - CTFサーバーシミュレーション
+# 32bit ELF (statically linked) を socat でポート公開する
+
+FROM ubuntu:20.04
+
+RUN apt-get update && apt-get install -y \
+    socat \
+    && rm -rf /var/lib/apt/lists/*
+
+# 32bit バイナリを配置
+COPY esp /usr/local/bin/esp
+RUN chmod +x /usr/local/bin/esp
+
+# ユーザーとflagを作成
+RUN useradd -m -s /bin/bash q36
+RUN mkdir -p /home/q36
+# ★ここを本物のflagに差し替えてください
+RUN echo "FLAG_dummyflag12345678901" > /home/q36/flag.txt
+RUN chmod 644 /home/q36/flag.txt
+
+EXPOSE 10036
+
+# socat でポート10036をespに紐付け
+CMD ["socat", "TCP-LISTEN:10036,reuseaddr,fork", "EXEC:/usr/local/bin/esp"]

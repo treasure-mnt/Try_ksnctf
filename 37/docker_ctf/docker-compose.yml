@@ -1,0 +1,39 @@
+version: "3.8"
+
+# ksnctf #36 "Are you ESPer?" ローカルシミュレーション
+#
+# 使い方:
+#   1. espバイナリをこのディレクトリに置く
+#   2. docker compose up -d server    # CTFサーバーを起動
+#   3. docker compose run --rm solver # Rustソルバーを実行
+#   4. docker compose down            # 後片付け
+#
+# 手動接続:
+#   nc localhost 10036
+#
+# 本番サーバーに向ける場合:
+#   docker compose run --rm solver ctfq.u1tramarine.blue:10036
+
+services:
+  # CTFサーバー (espバイナリをsocat経由で公開)
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile.server
+    ports:
+      - "10036:10036"
+    # ダミーflagを上書きしたい場合:
+    # volumes:
+    #   - ./flag.txt:/home/q36/flag.txt:ro
+    restart: unless-stopped
+
+  # Rustソルバー (serverに自動接続してflagを取得)
+  solver:
+    build:
+      context: .
+      dockerfile: Dockerfile.solver
+    command: ["server:10036"]
+    depends_on:
+      - server
+    # ソルバーはone-shotで実行
+    restart: "no"
